@@ -1,0 +1,19 @@
+{
+  "name": "scrape-images",
+  "version": "1.0.0",
+  "description": "Scrape Images",
+  "main": "scrapeImages.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "scrape",
+    "images"
+  ],
+  "author": "Antonin Fischer",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^21.4.1",
+    "sharp": "^0.32.6"
+  }
+}
