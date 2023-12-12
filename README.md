@@ -1,5 +1,7 @@
 ### ImageScraperSuite (ISS)
 
+[![Node.js CI](https://github.com/raven2cz/ImageScraperSuite/actions/workflows/node.js.yml/badge.svg)](https://github.com/raven2cz/ImageScraperSuite/actions/workflows/node.js.yml)
+
 **Note: While the abbreviation ISS might remind you of the International Space Station, in our case, it stands for ImageScraperSuite - a straightforward tool for downloading images, not a space expedition!**
 
 ImageScraperSuite is a collection of Node.js scripts providing basic tools for downloading and managing images. This project is in its early development stage, aiming for gradual enhancement with diverse functionalities.
