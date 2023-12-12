@@ -16,3 +16,21 @@ ImageScraperSuite is a collection of Node.js scripts providing basic tools for d
 **Ideal for**: This project is suitable for individuals or small teams looking to automate the process of downloading images for personal projects or small-scale marketing and graphic endeavors.
 
 **Tags**: #ImageScraping #SpotifyImages #WebScraping #Automation #NodeJS
+
+## Usage
+
+### Combined Workflow
+
+Run all scripts in sequence for a complete process of downloading, processing, and cleaning up images. Below is an example command to download images for Shakira's "Waka Waka" from the album "The Sun Comes Out":
+
+```
+node generateImageKeywordsFromSong.js "Waka Waka" "Shakira" "The Sun Comes Out" && \
+node scrapeImages.js && \
+node removeDuplicateAndCorruptedImages.js
+```
+
+This command first generates keywords, then scrapes images based on these keywords, and finally removes any duplicates or corrupted images.
+
+### Independent Usage
+
+Each script can also be used independently. The communication between scripts is facilitated through the `images.json` file, which serves as a data bridge. This flexibility allows for customized usage depending on specific needs or steps of your workflow.
