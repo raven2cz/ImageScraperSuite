@@ -1,19 +1,27 @@
 {
-  "name": "scrape-images",
+  "name": "image-scraper-suite",
   "version": "1.0.0",
-  "description": "Scrape Images",
+  "description": "ImageScraperSuite (ISS) is a Node.js script collection for automated image downloading and management. Features include downloading from DuckDuckGo, duplicate removal, and image integrity checks. Ideal for personal and small-scale marketing projects. #ImageScraping #WebScraping #Automation",
   "main": "scrapeImages.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "scrape",
-    "images"
+    "images",
+    "ImageScraping",
+    "WebScraping",
+    "Automation",
+    "SpotifyImages",
+    "NodeJS"
   ],
   "author": "Antonin Fischer",
-  "license": "ISC",
+  "license": "LGPL-2.1-only",
   "dependencies": {
     "puppeteer": "^21.4.1",
     "sharp": "^0.32.6"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
