@@ -19,23 +19,28 @@ test('scrapeImages script runs without errors', done => {
             "Shakira music visual"
         ]
     };
-    fs.writeFileSync('images.json', JSON.stringify(testData));
 
-    // Spuštění skriptu
-    exec('node scrapeImages.js', (error, stdout, stderr) => {
+    const testOutputDir = path.join(__dirname, 'test_output');
+    fs.mkdirSync(testOutputDir, { recursive: true });
+
+    const dataPath = path.join(testOutputDir, 'images.json');
+    fs.writeFileSync(dataPath, JSON.stringify(testData));
+
+    exec(`node scrapeImages.js "${testOutputDir}"`, (error, stdout, stderr) => {
         expect(error).toBeNull();
         expect(stderr).toBe('');
 
-        // validate results
-        const dir = path.join(__dirname, `${testData.artist} - ${testData.song}`);
+        // Validate results
+        const dir = path.join(testOutputDir, `${testData.artist} - ${testData.song}`);
         expect(fs.existsSync(dir)).toBe(true);
         const downloadedFiles = fs.readdirSync(dir);
         expect(downloadedFiles.length).toBeGreaterThan(0);
 
-        // clear after test
+        // Clear after test
         downloadedFiles.forEach(file => fs.unlinkSync(path.join(dir, file)));
-        fs.rmdirSync(dir);
-        fs.unlinkSync('images.json');
+        fs.rmSync(dir, { recursive: true });
+        fs.unlinkSync(dataPath);
+        fs.rmSync(testOutputDir, { recursive: true });
 
         done();
     });

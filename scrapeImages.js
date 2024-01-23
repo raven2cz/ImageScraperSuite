@@ -1,17 +1,27 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs");
-const data = require("./images.json");
+const path = require("path");
 const sharp = require("sharp");
 const https = require("https");
 const http = require("http");
 
 const MAX_DIMENSION_SIZE = 1000;
 
+const args = process.argv.slice(2);
+const outputDir = args.length > 0 ? args[0] : path.join(process.env.HOME, '.cache/ImageScraperSuite');
+const dataPath = path.join(outputDir, 'images.json');
+if (!fs.existsSync(dataPath)) {
+    console.error(`File 'images.json' not found in the specified output directory: ${outputDir}`);
+    process.exit(1);
+}
+
+const data = require(dataPath);
+
 const script = async () => {
     const browser = await puppeteer.launch({ headless: "new" });
     const page = await browser.newPage();
 
-    const dir = `${data.artist} - ${data.song}`;
+    const dir = path.join(outputDir, `${data.artist} - ${data.song}`);
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
     }
@@ -40,8 +50,8 @@ const script = async () => {
                 console.log(`Link for ${keyword} successfully retrieved: ${link}`);
 
                 const downloadAndResize = new Promise((resolve, reject) => {
-                    const imagePath = `${dir}/${keyword}.jpg`;
-                    const tempImagePath = `${dir}/${keyword}-temp.jpg`;
+                    const imagePath = path.join(dir, `${keyword}.jpg`);
+                    const tempImagePath = path.join(dir, `${keyword}-temp.jpg`);
                     const stream = fs.createWriteStream(imagePath);
                     const getFunction = link.startsWith("https:") ? https.get : http.get;
 

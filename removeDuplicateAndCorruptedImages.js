@@ -1,10 +1,17 @@
 const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
-const data = require('./images.json');
 
-const removeDuplicateAndCorruptedImages = async () => {
-    const dir = `${data.artist} - ${data.song}`;
+const removeDuplicateAndCorruptedImages = async (outputDir) => {
+    const dataPath = path.join(outputDir, 'images.json');
+    if (!fs.existsSync(dataPath)) {
+        console.error(`File 'images.json' not found in the specified output directory: ${ outputDir }`);
+        return;
+    }
+
+    const data = require(dataPath);
+    const dir = path.join(outputDir, `${data.artist} - ${data.song}`);
+
     if (!fs.existsSync(dir)) {
         console.log(`Directory '${dir}' does not exist.`);
         return;
@@ -19,7 +26,6 @@ const removeDuplicateAndCorruptedImages = async () => {
         const size = stats.size;
 
         try {
-            // Pokusíme se načíst obrázek pomocí sharp
             await sharp(filePath).metadata();
 
             if (fileSizes[size]) {
@@ -29,11 +35,14 @@ const removeDuplicateAndCorruptedImages = async () => {
                 fileSizes[size] = filePath;
             }
         } catch (error) {
-            // Pokud dojde k chybě při načítání, soubor je pravděpodobně poškozený
             console.log(`Corrupted image detected, deleting '${filePath}'`);
             fs.unlinkSync(filePath);
         }
     }
+
 };
 
-removeDuplicateAndCorruptedImages();
+const args = process.argv.slice(2);
+const outputDir = args.length > 0 ? args[0] : path.join(process.env.HOME, '.cache/ImageScraperSuite');
+
+removeDuplicateAndCorruptedImages(outputDir);
