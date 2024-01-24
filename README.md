@@ -21,11 +21,25 @@ ImageScraperSuite is a collection of Node.js scripts providing basic tools for d
 
 ## Usage
 
+### music_image_scraper Bash Script
+
+We've introduced a new bash script `music_image_scraper` to streamline the process of downloading, processing, and managing images related to music. This script utilizes the ImageScraperSuite to automate the download of images based on song, artist, and album names, with the option to specify an output directory.
+
+**Features:**
+- Simplifies the usage of ImageScraperSuite by combining multiple steps into one command.
+- Offers flexibility by allowing users to specify an album name and a custom output directory.
+
+**Example Command:**
+```bash
+./music_image_scraper.sh "Waka Waka" "Shakira" --output-dir ~/MusicImages
+```
+This command downloads images related to Shakira's "Waka Waka", storing the results in the specified output directory. If you don't use `output-dir` option, the default directory is `~/.cache/ImageScraperSuite`.
+
 ### Combined Workflow
 
-Run all scripts in sequence for a complete process of downloading, processing, and cleaning up images. Below is an example command to download images for Shakira's "Waka Waka" from the album "The Sun Comes Out":
+For a complete process of downloading, processing, and cleaning up images using the traditional method, run all scripts in sequence:
 
-```
+```bash
 node generateImageKeywordsFromSong.js "Waka Waka" "Shakira" "The Sun Comes Out" && \
 node scrapeImages.js && \
 node removeDuplicateAndCorruptedImages.js
